@@ -1,4 +1,4 @@
-name: HWHBEAR Assignment
+name: hnin
 
 on:
   push:
@@ -8,27 +8,27 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '#NORUN')"
+    if: "!contains(github.event.head_commit.message, '#NORUN')" 
     steps:
-      - name: Hnin code
+      - name: Available
         uses: actions/checkout@v3
 
-      - name: Hnin js Code
+      - name: Check.js environment
         uses: actions/setup-node@v3
         with:
           node-version: 16
 
-      - name: Hnin Railway
+      - name: Install Railway cli start
         run: npm i -g @railway/cli
 
-      - name: Hnin Railway up to
+      - name: railway up starting
         run: railway up
         env:
-          RAILWAY_TOKEN: ${{ secrets.SNOWCICD }}
+          RAILWAY_TOKEN: ${{ secrets.cicdhnin }}
 
-      - name: Hnin slack
+      - name: alert to message show
+        id: slack
         uses: slackapi/slack-github-action@v1.23.0
-        id: slack-notify
         with:
           payload: |
             {
@@ -46,19 +46,19 @@ jobs:
                   "fields": [
                     {
                       "type": "mrkdwn",
-                      "text": "Name:\nHnin Wutt Hsan"
+                      "text": "*Name:*\nHnin Wutt Hsan"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "Email:\ne1112929@u.nus.edu"
+                      "text": "*Email:*\ne1112929@u.nus.edu"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "Matriculation:\nE1112929"
+                      "text": "*Matriculation:*\nA0269546M"
                     },
                     {
                       "type": "mrkdwn",
-                      "text": "Repository:\n${{ github.event.repository.html_url }}"
+                      "text": "*Repository:*\n${{ github.event.repository.html_url }}"
                     }
                   ]
                 },
@@ -66,20 +66,20 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "https://${{ secrets.SNOWRAILWAY }}.up.railway.app/"
-                  },
+                    "text": "https://${{ secrets.hninlink }}.up.railway.app/"
+                  }, 
                   "accessory": {
                     "type": "button",
                     "text": {
                       "type": "plain_text",
-                      "text": "Go",
+                      "text": "GO",
                       "emoji": true
                     },
-                    "url": "https://${{ secrets.SNOWRAILWAY }}.up.railway.app/"
+                    "url": "https://${{ secrets.hninlink }}.up.railway.app/"
                   }
                 }
               ]
             }
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.slackhookurl }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
